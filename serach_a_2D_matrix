@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool InnerSolution(vector<vector<int>> &matrix,int target,int row){
+        int low=0;
+        int high=matrix[0].size()-1;
+        while(low<=high){
+            int mid2=low+(high-low)/2;
+            if(matrix[row][mid2]==target){
+                return true;
+            }
+            else if(target>matrix[row][mid2]){
+                low=mid2+1;
+            }
+            else{
+                high=mid2-1;
+            }
+        }
+        return false;
+    }
+    bool searchMatrix(vector<vector<int>> &matrix, int target){
+        int first_row=0;
+        int m=matrix.size();
+        int n=matrix[0].size();
+        int last_row=m-1;
+        while(first_row<=last_row){
+            int mid=first_row+(last_row-first_row)/2;
+            if(matrix[mid][0]<=target && target<=matrix[mid][n-1]){
+                return InnerSolution(matrix,target,mid);
+                
+            }
+            else if(target>matrix[mid][n-1]){
+                first_row=mid+1;
+            }
+            else{
+                last_row=mid-1;
+            }
+        }
+        return false;  
+    }
+};
